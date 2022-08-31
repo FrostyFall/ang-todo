@@ -13,10 +13,15 @@ import { Subject } from 'rxjs';
 export class TasksListComponent implements OnInit {
   @Input('listTitle') title!: string;
   @Output() addTask = new Subject<DialogData>();
+  @Output() clearTasks = new Subject<void>();
 
   ngOnInit(): void {}
 
   constructor(public dialog: MatDialog) {}
+
+  onClear() {
+    this.clearTasks.next();
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {

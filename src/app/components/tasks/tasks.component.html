@@ -1,5 +1,9 @@
 <div class="tasks-container-outter">
-  <app-tasks-list listTitle="To Do" (addTask)="onAddTodoTask($event)">
+  <app-tasks-list
+    listTitle="To Do"
+    (addTask)="onAddTodoTask($event)"
+    (clearTasks)="onClearTodo()"
+  >
     <div
       cdkDropList
       #todoList="cdkDropList"
@@ -12,7 +16,11 @@
     </div>
   </app-tasks-list>
 
-  <app-tasks-list listTitle="Doing" (addTask)="onAddDoingTask($event)">
+  <app-tasks-list
+    listTitle="Doing"
+    (addTask)="onAddDoingTask($event)"
+    (clearTasks)="onClearDoing()"
+  >
     <div
       cdkDropList
       #doingList="cdkDropList"
@@ -25,7 +33,11 @@
     </div>
   </app-tasks-list>
 
-  <app-tasks-list listTitle="Done" (addTask)="onAddDoneTask($event)">
+  <app-tasks-list
+    listTitle="Done"
+    (addTask)="onAddDoneTask($event)"
+    (clearTasks)="onClearDone()"
+  >
     <div
       cdkDropList
       #doneList="cdkDropList"
