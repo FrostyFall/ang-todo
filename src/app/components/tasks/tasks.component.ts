@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { DialogData } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-tasks',
@@ -19,6 +19,18 @@ export class TasksComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  onAddTodoTask(data: DialogData) {
+    this.todo.push(data.task);
+  }
+
+  onAddDoingTask(data: DialogData) {
+    this.doing.push(data.task);
+  }
+
+  onAddDoneTask(data: DialogData) {
+    this.done.push(data.task);
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {

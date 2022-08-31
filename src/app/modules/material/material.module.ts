@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const MaterialComponents = [
   MatSidenavModule,
@@ -13,6 +15,8 @@ const MaterialComponents = [
   MatButtonModule,
   DragDropModule,
   MatMenuModule,
+  MatDialogModule,
+  MatFormFieldModule,
 ];
 
 @NgModule({
