@@ -1,0 +1,20 @@
+// Drag & Drop
+.tasks-container-outter {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3.5rem;
+}
+
+.tasks-list {
+  min-height: 60px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.tasks-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

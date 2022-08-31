@@ -1,0 +1,44 @@
+<div class="tasks-container-outter">
+  <app-tasks-list listTitle="To Do">
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doingList, doneList]"
+      class="tasks-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-task *ngFor="let task of todo">{{ task }}</app-task>
+    </div>
+  </app-tasks-list>
+
+  <div class="tasks-container-inner">
+    <app-tasks-list listTitle="Doing">
+      <div
+        cdkDropList
+        #doingList="cdkDropList"
+        [cdkDropListData]="doing"
+        [cdkDropListConnectedTo]="[todoList, doneList]"
+        class="tasks-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-task *ngFor="let task of doing">{{ task }}</app-task>
+      </div>
+    </app-tasks-list>
+  </div>
+
+  <div class="tasks-container-inner">
+    <app-tasks-list listTitle="Done">
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList, doingList]"
+        class="tasks-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-task *ngFor="let task of done">{{ task }}</app-task>
+      </div>
+    </app-tasks-list>
+  </div>
+</div>

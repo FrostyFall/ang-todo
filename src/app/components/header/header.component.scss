@@ -1,0 +1,16 @@
+.app-logo {
+  font-size: 1.3rem;
+}
+
+mat-toolbar {
+  height: 70px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  min-width: 32px;
+}
