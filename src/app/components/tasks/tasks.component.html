@@ -1,52 +1,21 @@
 <div class="tasks-container-outter">
   <app-tasks-list
-    listTitle="To Do"
-    (addTask)="onAddTodoTask($event)"
-    (clearTasks)="onClearTodo()"
+    *ngFor="let table of tables; index as i"
+    [listTitle]="table.title"
+    (addTask)="onAddTask($event, table.id)"
+    (clearTasks)="onClear(table.id)"
   >
     <div
       cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="[doingList, doneList]"
+      [id]="'list-' + table.id"
+      [cdkDropListData]="tasksTables[table.id].tasks"
+      [cdkDropListConnectedTo]="tablesIds"
       class="tasks-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <app-task *ngFor="let task of todo">{{ task }}</app-task>
-    </div>
-  </app-tasks-list>
-
-  <app-tasks-list
-    listTitle="Doing"
-    (addTask)="onAddDoingTask($event)"
-    (clearTasks)="onClearDoing()"
-  >
-    <div
-      cdkDropList
-      #doingList="cdkDropList"
-      [cdkDropListData]="doing"
-      [cdkDropListConnectedTo]="[todoList, doneList]"
-      class="tasks-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <app-task *ngFor="let task of doing">{{ task }}</app-task>
-    </div>
-  </app-tasks-list>
-
-  <app-tasks-list
-    listTitle="Done"
-    (addTask)="onAddDoneTask($event)"
-    (clearTasks)="onClearDone()"
-  >
-    <div
-      cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList, doingList]"
-      class="tasks-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <app-task *ngFor="let task of done">{{ task }}</app-task>
+      <app-task *ngFor="let task of tasksTables[table.id].tasks">{{
+        task.title
+      }}</app-task>
     </div>
   </app-tasks-list>
 </div>

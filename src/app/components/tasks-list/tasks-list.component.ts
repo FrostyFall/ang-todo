@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { DialogComponent, DialogData } from '../dialog/dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
+import { DialogData } from 'src/app/models/dialogData.model';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -10,20 +11,18 @@ import { Subject } from 'rxjs';
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss'],
 })
-export class TasksListComponent implements OnInit {
+export class TasksListComponent {
   @Input('listTitle') title!: string;
   @Output() addTask = new Subject<DialogData>();
   @Output() clearTasks = new Subject<void>();
 
-  ngOnInit(): void {}
-
   constructor(public dialog: MatDialog) {}
 
-  onClear() {
+  public onClear() {
     this.clearTasks.next();
   }
 
-  openDialog(): void {
+  public openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { task: '' },
     });
