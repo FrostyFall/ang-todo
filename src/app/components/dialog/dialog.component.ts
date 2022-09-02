@@ -1,9 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface DialogData {
-  task: string;
-}
+import { DialogData } from 'src/app/models/dialogData.model';
 
 @Component({
   selector: 'app-dialog',
@@ -15,7 +12,7 @@ export class DialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
-  onCancel(): void {
+  public onCancel(): void {
     this.dialogRef.close();
   }
 }

@@ -1,21 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-  AfterViewInit,
-} from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-
-import { Inject } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-
-import { DialogComponent } from './components/dialog/dialog.component';
+import { Component } from '@angular/core';
 
 export interface DialogData {
   animal: string;

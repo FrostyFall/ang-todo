@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MaterialModule } from './modules/material/material.module';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +21,13 @@ import { DialogComponent } from './components/dialog/dialog.component';
     TasksListComponent,
     DialogComponent,
   ],
-  imports: [BrowserModule, NoopAnimationsModule, MaterialModule, FormsModule],
+  imports: [
+    BrowserModule,
+    NoopAnimationsModule,
+    MaterialModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
