@@ -37,3 +37,7 @@
 .tasks-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.reset-cursor {
+  cursor: initial;
+}

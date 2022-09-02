@@ -13,9 +13,19 @@
       class="tasks-list"
       (cdkDropListDropped)="drop($event)"
     >
-      <app-task *ngFor="let task of tasksTables[table.id].tasks">{{
-        task.title
-      }}</app-task>
+      <ng-template
+        [ngIf]="tasksTables[table.id].tasks.length > 0"
+        [ngIfElse]="noTasks"
+      >
+        <app-task
+          *ngFor="let task of tasksTables[table.id].tasks"
+          [canDrag]="true"
+          [text]="task.title"
+        ></app-task>
+      </ng-template>
+      <ng-template #noTasks>
+        <app-task [canDrag]="false" text="No tasks"></app-task>
+      </ng-template>
     </div>
   </app-tasks-list>
 </div>

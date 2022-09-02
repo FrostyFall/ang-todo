@@ -1,6 +1,15 @@
-<div class="task-box" cdkDrag cdkDragLockAxis="y">
-  <ng-content></ng-content>
-  <div class="tags-container" *ngIf="tags.length > 0">
-    <div class="tag" *ngFor="let tag of tags">{{ tag }}</div>
+<ng-template [ngIf]="draggable" [ngIfElse]="placeholder">
+  <div class="task-box" cdkDrag cdkDragLockAxis="y">
+    {{ text }}
+    <div class="tags-container" *ngIf="tags.length > 0">
+      <div class="tag" *ngFor="let tag of tags">{{ tag }}</div>
+    </div>
   </div>
-</div>
+</ng-template>
+
+<ng-template #placeholder>
+  <div class="task-box reset-cursor">
+    <ng-content></ng-content>
+    {{ text }}
+  </div>
+</ng-template>
