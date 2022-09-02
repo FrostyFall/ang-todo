@@ -1,14 +1,14 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
+  @Input('canDrag') draggable: boolean = false;
+  @Input() text: string = '';
   tags: string[] = ['High', 'Low'];
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
-
-  ngOnInit(): void {}
+  constructor() {}
 }
