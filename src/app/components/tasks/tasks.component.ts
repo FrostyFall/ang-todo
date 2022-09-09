@@ -87,6 +87,8 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   public drop(event: CdkDragDrop<Task[]>): void {
+    const currContainerId = +event.container.id.split('list-')[1];
+
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -100,6 +102,20 @@ export class TasksComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
+    }
+
+    let foundTask: Task | null = null;
+    this.tasksTables[currContainerId].tasks.forEach((task) => {
+      if (task.tableId !== currContainerId) {
+        foundTask = task;
+        foundTask.tableId = currContainerId;
+      }
+    });
+
+    if (foundTask) {
+      this.tasksService
+        .updateTask(foundTask)
+        .subscribe((res) => console.log(res));
     }
   }
 }

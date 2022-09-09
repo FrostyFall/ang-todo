@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { Response } from '../models/response.model';
 import { DialogData } from '../models/dialogData.model';
+import { Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,12 @@ export class TasksService {
       tableId,
       tags: [],
     });
+  }
+
+  public updateTask(data: Task): Observable<any> {
+    const { title, tableId } = data;
+
+    return this.http.put(`${this.apiUrl}tasks/${data.id}`, { title, tableId });
   }
 
   public clearTasks(tableId: number): Observable<any> {
