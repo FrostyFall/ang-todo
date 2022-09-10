@@ -29,9 +29,13 @@ export class TasksService {
   }
 
   public updateTask(data: Task): Observable<any> {
-    const { title, tableId } = data;
+    const { title, tableId, tagsIds } = data;
 
-    return this.http.put(`${this.apiUrl}tasks/${data.id}`, { title, tableId });
+    return this.http.put(`${this.apiUrl}tasks/${data.id}`, {
+      title,
+      tableId,
+      tagsIds,
+    });
   }
 
   public clearTasks(tableId: number): Observable<any> {

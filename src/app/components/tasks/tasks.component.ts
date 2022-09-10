@@ -111,6 +111,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         foundTask.tableId = currContainerId;
       }
     });
+    console.log(foundTask);
 
     if (foundTask) {
       this.tasksService
