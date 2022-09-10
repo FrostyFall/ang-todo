@@ -7,6 +7,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const MaterialComponents = [
   MatSidenavModule,
@@ -17,6 +18,7 @@ const MaterialComponents = [
   MatMenuModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
