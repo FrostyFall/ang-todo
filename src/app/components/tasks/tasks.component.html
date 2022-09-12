@@ -4,6 +4,7 @@
     [listTitle]="table.title"
     (addTask)="onAddTask($event, table.id)"
     (clearTasks)="onClear(table.id)"
+    [tags]="tags"
   >
     <div
       cdkDropList

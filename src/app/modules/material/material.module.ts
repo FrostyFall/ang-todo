@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
 
 const MaterialComponents = [
   MatSidenavModule,
@@ -19,6 +20,7 @@ const MaterialComponents = [
   MatDialogModule,
   MatFormFieldModule,
   MatProgressSpinnerModule,
+  MatChipsModule,
 ];
 
 @NgModule({

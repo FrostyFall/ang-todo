@@ -7,9 +7,12 @@ import {
 import { DialogData } from 'src/app/models/dialogData.model';
 import { Table } from 'src/app/models/table.model';
 import { Task } from 'src/app/models/task.model';
+import { Tag } from 'src/app/models/tag.model';
+
 import { TasksTable } from 'src/app/models/tasksTable.model';
 import { TasksService } from 'src/app/services/tasks.service';
 import { TablesService } from 'src/app/services/tables.service';
+import { TagsService } from 'src/app/services/tags.service';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 
 @Component({
@@ -21,11 +24,13 @@ export class TasksComponent implements OnInit, OnDestroy {
   tables!: Table[];
   tablesIds!: string[];
   tasksTables: TasksTable[] = [];
+  tags: Tag[] = [];
   private destroy$ = new Subject<void>();
 
   constructor(
     private tablesService: TablesService,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private tagsService: TagsService
   ) {}
 
   public ngOnInit(): void {
@@ -53,6 +58,10 @@ export class TasksComponent implements OnInit, OnDestroy {
           this.tasksTables[listIndex].tasks.push(task);
         });
       });
+
+    this.tagsService.getTags().subscribe((data: Tag[]) => {
+      this.tags = data;
+    });
   }
 
   public ngOnDestroy(): void {
@@ -68,6 +77,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         .addTask(data, id)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
+          console.log(res);
           this.tasksTables[listIndex].tasks.push(res.data);
         });
     }
@@ -111,7 +121,6 @@ export class TasksComponent implements OnInit, OnDestroy {
         foundTask.tableId = currContainerId;
       }
     });
-    console.log(foundTask);
 
     if (foundTask) {
       this.tasksService

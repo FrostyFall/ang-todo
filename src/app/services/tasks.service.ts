@@ -24,7 +24,7 @@ export class TasksService {
     return this.http.post<Response>(this.apiUrl + 'tasks', {
       title: data.task,
       tableId,
-      tags: [],
+      tags: data.selectedTags,
     });
   }
 

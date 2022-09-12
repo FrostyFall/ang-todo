@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogData } from 'src/app/models/dialogData.model';
 import { Subject } from 'rxjs';
+import { Tag } from 'src/app/models/tag.model';
 
 @Component({
   selector: 'app-tasks-list',
@@ -13,6 +14,7 @@ import { Subject } from 'rxjs';
 })
 export class TasksListComponent {
   @Input('listTitle') title!: string;
+  @Input() tags: Tag[] = [];
   @Output() addTask = new Subject<DialogData>();
   @Output() clearTasks = new Subject<void>();
 
@@ -24,11 +26,12 @@ export class TasksListComponent {
 
   public openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: { task: '' },
+      data: { task: '', tags: this.tags },
+      panelClass: 'dialog-container',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+      if (result && result.task.length > 0) {
         this.addTask.next(result);
       }
     });

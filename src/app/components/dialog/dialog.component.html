@@ -3,8 +3,50 @@
   <form appearance="fill">
     <input matInput [(ngModel)]="data.task" name="task" cdkFocusInitial />
   </form>
+  <mat-chip-list
+    aria-label="Tag selection"
+    #tagsList="matChipList"
+    [multiple]="true"
+    [selectable]="true"
+    class="tags-list"
+  >
+    <mat-chip
+      class="tag-chip"
+      color="primary"
+      #noneTag="matChip"
+      (click)="onNoneSelect()"
+      [selected]="true"
+      value="none"
+      >none</mat-chip
+    >
+    <mat-chip
+      class="tag-chip"
+      *ngFor="let tag of tags"
+      color="primary"
+      #tagChip="matChip"
+      (click)="onSelect(tagChip)"
+      [value]="tag.title"
+    >
+      {{ tag.title }}
+    </mat-chip>
+  </mat-chip-list>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data">Add</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data"
+    class="add-btn"
+    (click)="onAddTask()"
+  >
+    Add
+  </button>
+  <button
+    mat-stroked-button
+    (click)="onCancel()"
+    class="cancel-btn"
+    [ngStyle]="{ marginLeft: 0 }"
+  >
+    Cancel
+  </button>
 </div>
