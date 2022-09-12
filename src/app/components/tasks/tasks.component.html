@@ -4,6 +4,7 @@
     [listTitle]="table.title"
     (addTask)="onAddTask($event, table.id)"
     (clearTasks)="onClear(table.id)"
+    [tags]="tags"
   >
     <div
       cdkDropList
@@ -20,11 +21,12 @@
         <app-task
           *ngFor="let task of tasksTables[table.id].tasks"
           [canDrag]="true"
-          [text]="task.title"
+          [title]="task.title"
+          [tags]="task.tagsIds"
         ></app-task>
       </ng-template>
       <ng-template #noTasks>
-        <app-task [canDrag]="false" text="No tasks"></app-task>
+        <app-task [canDrag]="false" title="No tasks"></app-task>
       </ng-template>
     </div>
   </app-tasks-list>

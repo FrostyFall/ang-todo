@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  // ngOnInit(): void {}
+  showSpinner = true;
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.showSpinner = false;
+    }, 3000);
+  }
 }

@@ -3,3 +3,7 @@
 <main class="main-container container">
   <app-tasks></app-tasks>
 </main>
+
+<div *ngIf="showSpinner" class="spinner-container">
+  <mat-spinner color="primary"></mat-spinner>
+</div>
