@@ -38,6 +38,12 @@ export class TasksService {
     });
   }
 
+  public deleteTask(data: Task): Observable<any> {
+    const { id } = data;
+
+    return this.http.delete(`${this.apiUrl}tasks/${id}`);
+  }
+
   public clearTasks(tableId: number): Observable<any> {
     return this.http.delete<void>(`${this.apiUrl}tables/${tableId}`);
   }
