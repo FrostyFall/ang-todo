@@ -20,7 +20,7 @@ export class TaskComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onDelete() {
+  public onDelete(): void {
     this.onDelete$.next();
   }
 }

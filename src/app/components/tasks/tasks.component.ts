@@ -13,7 +13,7 @@ import { TasksTable } from 'src/app/models/tasksTable.model';
 import { TasksService } from 'src/app/services/tasks.service';
 import { TablesService } from 'src/app/services/tables.service';
 import { TagsService } from 'src/app/services/tags.service';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -47,21 +47,38 @@ export class TasksComponent implements OnInit, OnDestroy {
           );
 
           return this.tasksService.getTasks();
+        }),
+        catchError((_) => {
+          throw new Error('Failed to get tables');
         })
       )
-      .subscribe((data: Task[]) => {
-        data.forEach((task: Task) => {
-          const listIndex = this.tasksTables.findIndex(
-            (table) => table.tableId === task.tableId
-          );
+      .subscribe({
+        next: (data: Task[]) => {
+          data.forEach((task: Task) => {
+            const listIndex = this.tasksTables.findIndex(
+              (table) => table.tableId === task.tableId
+            );
 
-          this.tasksTables[listIndex].tasks.push(task);
-        });
+            this.tasksTables[listIndex].tasks.push(task);
+          });
+        },
+        error: (err) => console.log(err),
       });
 
-    this.tagsService.getTags().subscribe((data: Tag[]) => {
-      this.tags = data;
-    });
+    this.tagsService
+      .getTags()
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((_) => {
+          throw new Error('Failed to get tags');
+        })
+      )
+      .subscribe({
+        next: (data: Tag[]) => {
+          this.tags = data;
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   public ngOnDestroy(): void {
@@ -75,10 +92,18 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (listIndex !== -1) {
       this.tasksService
         .addTask(data, id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
-          console.log(res);
-          this.tasksTables[listIndex].tasks.push(res.data);
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError((_) => {
+            throw new Error('Failed to add task');
+          })
+        )
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.tasksTables[listIndex].tasks.push(res.data);
+          },
+          error: (err) => console.log(err),
         });
     }
   }
@@ -89,9 +114,17 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (listIndex !== -1) {
       this.tasksService
         .clearTasks(id)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(() => {
-          this.tasksTables[listIndex].tasks.length = 0;
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError((_) => {
+            throw new Error('Failed to clear tasks');
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.tasksTables[listIndex].tasks.length = 0;
+          },
+          error: (err) => console.log(err),
         });
     }
   }
@@ -100,8 +133,20 @@ export class TasksComponent implements OnInit, OnDestroy {
     const allTasks = this.tasksTables[tableIndex].tasks;
     const task = allTasks[taskIndex];
 
-    this.tasksService.deleteTask(task).subscribe();
-    allTasks.splice(taskIndex, 1);
+    this.tasksService
+      .deleteTask(task)
+      .pipe(
+        takeUntil(this.destroy$),
+        catchError((_) => {
+          throw new Error('Failed to delete task');
+        })
+      )
+      .subscribe({
+        next: (_) => {
+          allTasks.splice(taskIndex, 1);
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   public drop(event: CdkDragDrop<Task[]>): void {
@@ -133,7 +178,16 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (foundTask) {
       this.tasksService
         .updateTask(foundTask)
-        .subscribe((res) => console.log(res));
+        .pipe(
+          takeUntil(this.destroy$),
+          catchError((_) => {
+            throw new Error('Failed to move task to another table');
+          })
+        )
+        .subscribe({
+          next: (res) => console.log(res),
+          error: (err) => console.log(err),
+        });
     }
   }
 }
