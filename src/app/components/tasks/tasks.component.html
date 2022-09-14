@@ -19,10 +19,13 @@
         [ngIfElse]="noTasks"
       >
         <app-task
-          *ngFor="let task of tasksTables[table.id].tasks"
+          *ngFor="let task of tasksTables[table.id].tasks; index as i"
           [canDrag]="true"
           [title]="task.title"
           [tags]="task.tagsIds"
+          [taskIndex]="i"
+          [tableIndex]="table.id"
+          (onDelete$)="onTaskDelete(i, table.id)"
         ></app-task>
       </ng-template>
       <ng-template #noTasks>

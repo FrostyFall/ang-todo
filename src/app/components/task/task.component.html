@@ -1,14 +1,21 @@
 <ng-template [ngIf]="draggable" [ngIfElse]="placeholder">
   <div class="task-box" cdkDrag cdkDragLockAxis="y">
-    {{ title }}
-    <div class="tags-container" *ngIf="tags.length > 0">
-      <div
-        class="tag"
-        [ngStyle]="{ backgroundColor: tag.color }"
-        *ngFor="let tag of tags"
-      >
-        {{ tag.title }}
+    <div class="first-column">
+      {{ title }}
+      <div class="tags-container" *ngIf="tags.length > 0">
+        <div
+          class="tag"
+          [ngStyle]="{ backgroundColor: tag.color }"
+          *ngFor="let tag of tags"
+        >
+          {{ tag.title }}
+        </div>
       </div>
+    </div>
+    <div class="second-column">
+      <button mat-icon-button (click)="onDelete()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
     </div>
   </div>
 </ng-template>

@@ -96,6 +96,14 @@ export class TasksComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onTaskDelete(taskIndex: number, tableIndex: number): void {
+    const allTasks = this.tasksTables[tableIndex].tasks;
+    const task = allTasks[taskIndex];
+
+    this.tasksService.deleteTask(task).subscribe();
+    allTasks.splice(taskIndex, 1);
+  }
+
   public drop(event: CdkDragDrop<Task[]>): void {
     const currContainerId = +event.container.id.split('list-')[1];
 
